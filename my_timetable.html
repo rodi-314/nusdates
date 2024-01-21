@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet"> <!-- Add Shadows Into Light font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Timetable - NUS Dates</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the content takes at least the full viewport height */
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #header {
+            font-family: 'Shadows Into Light', cursive;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            font-size: 1em; /* Adjust text size as needed */
+            letter-spacing: 5px; /* Increase letter spacing for more spacing */
+        }
+
+        #header span {
+            color: #EF7C00; /* Change the color of NUS to #EF7C00 */
+        }
+
+        nav {
+            background-color: #EF7C00; /* Change to the desired color */
+            color: #333; /* Change text color if needed */
+            padding: 1em;
+            text-align: center;
+        }
+        nav a {
+            margin-right: 50px; /* Add space between icons */
+        }
+
+        section {
+            flex: 1;
+            padding: 2em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #ecf0f1;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #footer {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header">
+        <h1><span>NUS<span>Dates</h1>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('match') }}" ><i class="fas fa-handshake"></i></a>
+        <a href="{{ url_for('groups') }}"><i class="fas fa-users"></i></a>
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i></a>
+        <a href="{{ url_for('friends') }}"><i class="fas fa-user-friends"></i></a>
+        <a href="{{ url_for('my_account') }}"><i class="fas fa-user"></i></a>
+    </nav>
+
+    <section>
+        <form id="timetableForm" action="{{ url_for('save_timetable') }}" method="post">
+            <label for="timetableUrl">Paste the timetable link from NUSMods</label>
+            <input type="text" id="timetableUrl" name="timetableLink" placeholder="https://nusmods.com/timetable/sem-1/...">
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <script>
+        function saveTimetable() {
+            var timetableLink = $('#timetableUrl').val();
+            $.post("/save_timetable", { timetableLink: timetableLink }, function(data) {
+                // Handle the response from the server
+                console.log(data);
+            });
+        }
+    </script>
+
+    <div id="footer">
+        <p>&copy; 2024 NUSdates. All rights reserved.</p>
+    </div>
+</body>
+</html>

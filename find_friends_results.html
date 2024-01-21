@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content if needed -->
+    <title>Search Results - NUSdates</title>
+</head>
+<body>
+    <h2>Search Results</h2>
+
+    <ul id="search-results">
+        {% for username in filtered_usernames %}
+            <li>{{ username }}</li>
+        {% endfor %}
+
+        {% if filtered_usernames|length == 0 %}
+            <li>No matching usernames found.</li>
+        {% endif %}
+    </ul>
+    <!-- friend_search_results.html -->
+    <!-- Display the search results in this template -->
+    <ul>
+        {% for username in results %}
+            <li>
+                {{ username }}
+                <form action="{{ url_for('add_friend') }}" method="post" style="display: inline;">
+                    <input type="hidden" name="friend_username" value="{{ username }}">
+                    <button type="submit">Add Friend</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Add your footer content if needed -->
+</body>
+</html>
