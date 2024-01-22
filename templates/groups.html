@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet"> <!-- Add Shadows Into Light font -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"> <!-- Add Font Awesome CSS -->
+    <title>Groups - NUSdates</title>
+    <style>
+        /* Your CSS styles go here */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #header {
+            font-family: 'Shadows Into Light', cursive;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            font-size: 1em; /* Adjust text size as needed */
+            letter-spacing: 5px; /* Increase letter spacing for more spacing */
+        }
+
+        #header span {
+            color: #EF7C00; /* Change the color of NUS to #EF7C00 */
+        }
+
+        nav {
+            background-color: #EF7C00; /* Change to the desired color */
+            color: #333; /* Change text color if needed */
+            padding: 1em;
+            text-align: center;
+        }
+        nav a {
+            margin-right: 50px; /* Add space between icons */
+        }
+
+        #content {
+            flex: 1;
+            padding: 20px;
+            background: #f3f5f8;
+        }
+
+        #tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #ccc;
+        }
+
+        .group {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .group-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        #create-group {
+            width: 100%; /* Occupy full width */
+            display: none; /* Initially hide the create group section */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-button {
+            padding: 10px;
+            background-color: #262689;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-button:hover {
+            background-color: #1b185b;
+        }
+
+        #footer {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1><span>NUS<span>Dates</h1>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('match') }}" ><i class="fas fa-handshake"></i></a>
+        <a href="{{ url_for('friends') }}"><i class="fas fa-user-friends"></i></a>
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i></a>
+        <a href="{{ url_for('my_timetable') }}" ><i class="fas fa-calendar-alt"></i></a>
+        <a href="{{ url_for('my_account') }}"><i class="fas fa-user"></i></a>
+    </nav> 
+
+    <div id="content">
+        <div id="tabs">
+            <div class="tab" onclick="showTab('group-list')">My Groups</div>
+            <div class="tab" onclick="showTab('create-group')">Create Group</div>
+        </div>
+
+        <div id="group-list">
+            <h2>My Groups</h2>
+
+            <!-- Display user's existing groups dynamically from your data -->
+            <div class="group">
+                <span class="group-name">Group 1</span>
+                <ul class="members-list">
+                    <!-- Display group members dynamically from your data -->
+                    <li class="member">Member 1</li>
+                    <li class="member">Member 2</li>
+                    <!-- Add more member entries as needed -->
+                </ul>
+            </div>
+
+            <!-- Add more group entries as needed -->
+        </div>
+
+        <div id="create-group">
+            <h2>Create Group</h2>
+
+            <form id="group-form" onsubmit="createGroup(); return false;">
+                <div class="form-group">
+                    <label class="form-label" for="group-name">Group Name:</label>
+                    <input class="form-input" type="text" id="group-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="search-friends">Search Friends:</label>
+                    <input class="form-input" type="text" id="search-friends" oninput="filterFriends()" placeholder="Enter friend's name">
+                </div>
+
+                <div class="form-group" id="friends-list" style="display: none;">
+                    <label class="form-label">Add Friends:</label>
+                    <ul id="friend-list-container">
+                        <!-- Display existing friends dynamically from your data -->
+                        <li class="friend" data-name="Friend 1"><input type="checkbox" name="selected-friends" value="friend1"> Friend 1</li>
+                        <li class="friend" data-name="Friend 2"><input type="checkbox" name="selected-friends" value="friend2"> Friend 2</li>
+                        <!-- Add more friend options as needed -->
+                    </ul>
+                </div>
+
+                <button class="form-button" type="submit">Create Group</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer">
+        <p>&copy; 2024 NUSdates. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Array to store user's groups (replace it with your actual data structure)
+        let userGroups = [
+            { name: 'Group 1', members: ['Member 1', 'Member 2'] },
+            // Add more groups as needed
+        ];
+    
+        function showTab(tabId) {
+            // Hide all tabs
+            document.getElementById('group-list').style.display = 'none';
+            document.getElementById('create-group').style.display = 'none';
+    
+            // Show the selected tab
+            document.getElementById(tabId).style.display = 'block';
+    
+            // Reset the "Create Group" form when switching tabs
+            if (tabId === 'create-group') {
+                resetCreateGroupForm();
+            }
+        }
+    
+        function createGroup() {
+            // Get the group name and selected friends
+            let groupName = document.getElementById('group-name').value;
+            let selectedFriends = document.querySelectorAll('#friends-list input:checked');
+    
+            // Create an object to store group details
+            let newGroup = {
+                name: groupName,
+                members: []
+            };
+    
+            // Populate the members array with selected friends
+            selectedFriends.forEach(friend => {
+                newGroup.members.push(friend.value);
+            });
+    
+            // Add the new group to the user's groups
+            userGroups.push(newGroup);
+    
+            // Update the "My Groups" section with the latest groups data
+            updateMyGroups(userGroups);
+    
+            // Optional: You can reset the form or perform other actions
+            resetCreateGroupForm();
+        }
+    
+        function updateMyGroups(groups) {
+            // Clear existing groups in the "My Groups" section
+            let groupListContainer = document.getElementById('group-list');
+            groupListContainer.innerHTML = '';
+    
+            // Display each group dynamically
+            groups.forEach(group => {
+                let groupItem = document.createElement('div');
+                groupItem.className = 'group';
+                groupItem.innerHTML = `<span class="group-name">${group.name}</span>`;
+                
+                let membersList = document.createElement('ul');
+                membersList.className = 'members-list';
+    
+                // Display group members dynamically from your data
+                group.members.forEach(member => {
+                    let memberItem = document.createElement('li');
+                    memberItem.className = 'member';
+                    memberItem.textContent = member;
+                    membersList.appendChild(memberItem);
+                });
+    
+                groupItem.appendChild(membersList);
+                groupListContainer.appendChild(groupItem);
+            });
+        }
+    
+        function filterFriends() {
+            // Add logic to filter friends based on the search input
+            let searchInput = document.getElementById('search-friends').value.toLowerCase();
+            let friendListContainer = document.getElementById('friend-list-container');
+    
+            // Clear previous results
+            friendListContainer.innerHTML = '';
+    
+            // Display or hide the friends list based on search input
+            document.getElementById('friends-list').style.display = searchInput ? 'block' : 'none';
+    
+            // Filter friends dynamically
+            const friends = ['Friend 1', 'Friend 2']; // Replace with your actual data
+            friends.forEach(friend => {
+                let friendName = friend.toLowerCase();
+                if (friendName.includes(searchInput)) {
+                    let friendItem = document.createElement('li');
+                    friendItem.className = 'friend';
+                    friendItem.dataset.name = friend;
+                    friendItem.innerHTML = `<input type="checkbox" name="selected-friends" value="${friend}"> ${friend}`;
+                    friendListContainer.appendChild(friendItem);
+                }
+            });
+        }
+    
+        function resetCreateGroupForm() {
+            // Reset the form fields and hide the friends list
+            document.getElementById('group-form').reset();
+            document.getElementById('friends-list').style.display = 'none';
+        }
+    
+        // Initially, show the "My Groups" tab
+        showTab('group-list');
+    </script>
+</

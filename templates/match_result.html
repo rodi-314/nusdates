@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <!-- Add Shadows Into Light font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match - NUSdates</title>
+    <style>
+        /* Your CSS styles go here */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #header {
+            font-family: 'Shadows Into Light', cursive;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            font-size: 1em; /* Adjust text size as needed */
+            letter-spacing: 5px; /* Increase letter spacing for more spacing */
+        }
+
+        #header span {
+            color: #EF7C00; /* Change the color of NUS to #EF7C00 */
+        }
+
+        nav {
+            background-color: #EF7C00; /* Change to the desired color */
+            color: #333; /* Change text color if needed */
+            padding: 1em;
+            text-align: center;
+        }
+        nav a {
+            margin-right: 50px; /* Add space between icons */
+        }
+
+
+        #content {
+            flex: 1;
+            padding: 20px;
+            background: #f3f5f8;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .layer {
+            margin-bottom: 10px;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .filter-checkbox {
+            margin-right: 10px;
+        }
+
+        .apply-filter-button {
+            display:none;
+            padding: 10px;
+            background-color: #262689;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .apply-filter-button:hover {
+            background-color: #1b185b;
+        }
+
+        .weekly-planner {
+            margin-top: 20px;
+        }
+
+        .day {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .day-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .day-separator {
+            height: 1px;
+            background-color: #ccc;
+            margin: 10px 0;
+        }
+
+        #footer {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1><span>NUS</span>Dates</h1>
+</div>
+
+<nav>
+    <a href="{{ url_for('my_timetable') }}"><i class="fas fa-calendar-alt"></i></a>
+    <a href="{{ url_for('groups') }}"><i class="fas fa-users"></i></a>
+    <a href="{{ url_for('home') }}"><i class="fas fa-home"></i></a>
+    <a href="{{ url_for('friends') }}"><i class="fas fa-user-friends"></i></a>
+    <a href="{{ url_for('my_account') }}"><i class="fas fa-user"></i></a>
+</nav>
+
+<div id="content">
+    <h2>Match</h2>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <!-- Layer 1: Enter Friend or Group Name -->
+        <div class="layer">
+            <form id="friend_name_Form" action="{{ url_for('get_friend_username') }}" method="post">
+                <label for="search-input">Enter friend or group name:</label>
+                <input type="text" id="search-input" name="searchlink" placeholder="Username or group name">
+                <label for="same-timetable" class="filter-checkbox">
+                    <input type="checkbox" id="same-timetable" name="same-timetable"> Same Timetable Slot
+                </label>
+                <!-- Checkboxes for Filtering -->
+                <label for="common-free-time" class="filter-checkbox">
+                    <input type="checkbox" id="common-free-time" name="common-free-time"> Common Free Time
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+
+        </div>
+
+        <!-- Weekly Planner Section -->
+        <!-- Weekly Planner Section -->
+        <div class="weekly-planner" id="weekly-planner">
+            {% set days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] %}
+            {% for day in days_order %}
+            <div class="day">
+                <div class="day-header">{{ day }}</div>
+                {% for course, schedule in data.items() if course[2] == day %}
+                <div class="time-slot">
+                    <span class="time">{{ course[3] }} - {{ course[4] }}</span>
+                    <span class="activity">{{ course[0] }} - {{ course[1] }}</span>
+                </div>
+                <div class="day-separator"></div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <div id="footer">
+        <p>&copy; 2024 NUSdates. All rights reserved.</p>
+    </div>
+
+    <script>
+    </script>
+</div>
+</body>
+</html>

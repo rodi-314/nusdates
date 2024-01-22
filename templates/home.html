@@ -1,0 +1,205 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet"> <!-- Add Shadows Into Light font -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"> <!-- Add Font Awesome CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #header {
+            font-family: 'Shadows Into Light', cursive;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            font-size: 1em; /* Adjust text size as needed */
+            letter-spacing: 5px; /* Increase letter spacing for more spacing */
+        }
+
+        #header span {
+            color: #EF7C00; /* Change the color of NUS to #EF7C00 */
+        }
+
+        #content {
+            font-family: 'Nunito'; 
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: row; /* Change to row to display content and image side by side */
+            align-items: flex-start; /* Align content to the top */
+            position: relative;
+            background: linear-gradient(to right, #f3f5f8 50%, #fff 50%);
+        }
+
+        #welcome-text {
+            font-family: 'Nunito'; /* Add the Pacifico font */
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 65px; /* Change font size to 65 */
+            font-weight: bold;
+        }
+
+        #nus-dates {
+            color: #FF000D; /* Change color to #FF000D */
+            text-decoration: underline; /* Underline the "NUSDates" part */
+            font-style: italic; /* Italicize the "NUSDates" part */
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: absolute;
+            bottom: 79px;
+            left: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            width: 150px;
+            height: 45px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #262689;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Nunito', sans-serif; /* Add the Nunito font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #1b185b;
+        }
+
+        #footer {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #image-container {
+            flex: 1; /* Take up the remaining space */
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            align-items: center;
+            padding-right: 120px; /* Add some padding to the right for spacing */
+            margin-top: 45px; /* Adjust the margin to shift the icon down */
+        }
+
+        #image-container i {
+            font-size: 500px; /* Increase the font size to make it 100 times larger */
+            color: #EF7C00; /* Set the color of the calendar icon to #EF7C00 */
+        }
+
+        .red-text {
+            color: #FF000D; 
+            font-size: 20px; /* Adjust the font size as needed */
+            font-style: italic; /* Italicize the text */
+        }
+        #info-text {
+            position: absolute;
+            top: 50%;
+            left: 33%;
+            transform: translate(-50%, -50%);
+            max-width: 500px;
+            z-index: 2; /* Set a higher z-index to make sure it's on top */
+            text-align: justify;
+            font-size: 20px; /* Adjust the font size as needed */
+        }
+        .line {
+            width: 520px; /* Adjust the length of the lines */
+            height: 5px; /* Adjust the thickness of the lines */
+            background-color: #000; /* Black color */
+            position: absolute;
+        }
+
+        .line.top {
+            left: 32%;
+            transform: translateX(-50%);
+            top: calc(50% - 182px); /* Adjust the position of the top line */
+        }
+
+        .line.bottom {
+            left: 32%;
+            transform: translateX(-50%);
+            bottom: -100px; /* Adjust the position of the bottom line */
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1><span>NUS<span>Dates</h1>
+    </div>
+
+    <div id="content">
+        <div id="welcome-text" style="top: -30px;">
+            <!-- Adjust margin to shift the welcome text and icon independently -->
+            <i class="fas fa-home" style="font-size: 70px; margin-right: 10px; margin-top: 50px;"></i>
+            <p style="margin-left: 100px; margin-top: -94px;"> <span id="nus-dates">NUSDates</span></p>
+        </div>
+
+        <div class="button-container">
+            <a href="{{ url_for('my_timetable') }}" class="button">
+                <i class="fas fa-calendar-alt" style="font-size: 1.1em; margin-right: 10px;"></i> <span style="vertical-align: middle;">My Timetable</span>
+            </a>
+            <a href="{{ url_for('friends') }}" class="button">
+                <i class="fas fa-user-friends" style="font-size: 1.1em; margin-right: 10px;"></i> <span style="vertical-align: middle;">Friends</span>
+            </a>
+            <a href="{{ url_for('match') }}" class="button">
+                <i class="fas fa-handshake" style="font-size: 1.1em; margin-right: 10px;"></i> <span style="vertical-align: middle;">Match!</span>
+            </a>
+            <a href="{{ url_for('groups') }}" class="button">
+                <i class="fas fa-users" style="font-size: 1.1em; margin-right: 10px;"></i> <span style="vertical-align: middle;">Groups</span>
+            </a>
+            <a href="{{ url_for('my_account') }}" class="button">
+                <i class="fas fa-user" style="font-size: 1.1em; margin-right: 10px;"></i> <span style="vertical-align: middle;">My Account</span>
+            </a>
+        </div>
+
+        <div id="image-container">
+            <!-- Replace the image with a calendar on top of a handshake icon -->
+            <i class="fas fa-calendar-alt" style="font-size: 100px; position: absolute; top: 50%; left: 63%; transform: translate(-50%, -50%);color: #EF7C00;"></i>
+            <i class="fas fa-handshake" style="font-size: 200px; position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%); color: #262689;"></i>
+            <i class="fas fa-calendar-alt" style="font-size: 100px; position: absolute; top: 50%; left: 87%; transform: translate(-50%, -50%);color: #EF7C00;"></i>
+            <p style="text-align: center; margin-top: 325px; font-size: 21px; font-weight: bold; margin-left: 50px;">
+                Unlocking Friendship, One Schedule at a Time
+            </p>
+        </div>
+
+        <div class="line top"></div>
+
+        <div id="info-text">
+            <p>NUSDates - the ultimate solution for NUS students </p>
+            <p>to <span class="red-text">connect</span>, <span class="red-text">coordinate</span>, and <span class="red-text">conquer</span> scheduling</p>
+            <p>challenges.<p>
+            <br>
+            <p>Say GOODBYE to the hassles of scheduling and </p>
+            <p>HELLO to a better student life.</p>
+        </div>
+
+
+
+    </div>
+
+    <div id="footer">
+        <p>&copy; 2024 NUSdates. All rights reserved.</p>
+    </div>
+</body>
+</html>
