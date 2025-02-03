@@ -11,6 +11,6 @@ Contributions:
 - Solved timetable-matching SQL query
 - Led frontend-backend integration
 
-Awarded Best Freshman Hack at Hack&Roll 2024. Check out the Devpost [here]({https://devpost.com/software/nusdates-w3byli})!
+Awarded Best Freshman Hack at Hack&Roll 2024. Check out the Devpost at https://devpost.com/software/nusdates-w3byli!
 
 ![image](https://github.com/user-attachments/assets/ee6443b0-989e-49cf-84e1-6ef0116d5ddd)
